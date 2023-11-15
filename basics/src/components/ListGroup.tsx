@@ -1,34 +1,29 @@
 "use client";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-const badges = [
-  {
-    id: 1,
-    label: "Karachi",
-  },
-  {
-    id: 2,
-    label: "Lahore",
-  },
-  {
-    id: 3,
-    label: "Islamabad",
-  },
-  {
-    id: 4,
-    label: "Rawalpindi",
-  },
-  {
-    id: 5,
-    label: "Quetta",
-  },
-  {
-    id: 6,
-    label: "Swat",
-  },
-];
 
-const ListGroup = () => {
+// Instead of passing hardcoding badges arrray we should make it resuable and pass different data based on cases
+
+// Creating reusable component using TypeScript
+// Step 1. Define the shape of the input into this component
+/**
+ * The component will have below as input
+ *  badges: [],
+ *  title: string
+ *
+ * We can define a shape of a component using interface in TypeScript.
+ */
+
+interface ListGroupProps {
+  // we are using type annotations to provide the type of various properties
+  items: object[]; // array of object
+  title: string; // string
+
+  // (item: string) => void (does not return anything)
+  onSelectItem: (item: object) => void;
+}
+
+const ListGroup = ({ items, title, onSelectItem }: ListGroupProps) => {
   // If we try to update this value, the UI will not reflect the changes
   // It is local to this component
   // We have to tell react that we have data that might change over time, that is called state
@@ -45,26 +40,28 @@ const ListGroup = () => {
 
   // Each component is going to have its own state
 
-  function handleClick(id) {
+  // When we update the state of a component, there are cases that something should happen when the item is selected. It can be sending a new request to the server of simply update the parent component that child has changed. We can acheive that by pass functions as props
+
+  function handleClick(id: number) {
     setSelectedIndex(id);
   }
 
   return (
     <div>
-      {badges.map((badge) => {
-        return (
-          <Badge
-            className="cursor-pointer mr-4"
-            size="lg"
-            variant={selectedIndex === badge.id ? "default" : "outline"}
-            onClick={() => {
-              handleClick(badge.id);
-            }}
-          >
-            {badge?.label}
-          </Badge>
-        );
-      })}
+      <h2 className="mb-4 font-bold text-bold">{title}</h2>
+      {items.map((badge) => (
+        <Badge
+          className="cursor-pointer mr-4"
+          size="lg"
+          variant={selectedIndex === badge.id ? "default" : "outline"}
+          onClick={() => {
+            handleClick(badge.id);
+            onSelectItem(badge);
+          }}
+        >
+          {badge?.label}
+        </Badge>
+      ))}
     </div>
   );
 };
