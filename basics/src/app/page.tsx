@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import ListGroup from "@/components/ListGroup";
+import Button from "@/components/Custom/Button";
 
 const badges = [
   {
@@ -37,9 +38,11 @@ export default function Home() {
   return (
     <main className="p-6">
       {/* the state of a component is independent, the state of this ListGroup will not affect the state of another ListGroup component if used here */}
-
       {/* The typescript compiler will remind us that we have forgotton to pass the defined props, if we do not pass the props that is defined in the interface of our component  */}
       <ListGroup items={badges} title="Cities" onSelectItem={onSelectItem} />
+
+      <br />
+      <Button />
     </main>
   );
 }
