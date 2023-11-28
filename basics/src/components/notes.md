@@ -65,3 +65,34 @@ When the function finishes execution our local variable is removed from the memo
 ```
 
 [isVisible, setVisibility], [isApproved, setApproved] are just local identifiers in the component. React is not aware of them. We tell react that we have to store 2 boolean values. So somewhere react is going to store these value most likely inside an array like this [false, false]. So next time react rerenders the array it is going to look in this array, grabs the first item and matches it with the current value and store inside the state variable. So react relies on the order of the items in the array so it can properly maps the values of our state variables. This is why we can not use the state hooks inside control statements, switch, loops
+
+## Updating an array of object
+
+Let's say we have an array of object and we want to update
+
+    const [bugs, setBugs] = useState([
+        {
+            id: 1,
+            title: 'Bug 1',
+            fixed: false
+        }
+        {
+            id: 2,
+            title: 'Bug 2',
+            fixed: false
+        }
+        {
+            id: 3,
+            title: 'Bug 3',
+            fixed: true
+        }
+
+    ])
+
+When we do state update of array, object or arr of objects, we should return a new object/array so react can pick up and update return the new state.
+
+To update an array of object we can use the map method. map() returns a new array so we do not have to spread the prevState when updating function
+
+setBugs(bugs.map(bug=>{bug.id === 1 ? {...bug, fixed: true} : bug}))
+
+We donot have to create a brand new copy of each object in this array, only the object that should be modified. In this case bug with id 1
