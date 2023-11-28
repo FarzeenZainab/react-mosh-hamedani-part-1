@@ -96,3 +96,5 @@ To update an array of object we can use the map method. map() returns a new arra
 setBugs(bugs.map(bug=>{bug.id === 1 ? {...bug, fixed: true} : bug}))
 
 We donot have to create a brand new copy of each object in this array, only the object that should be modified. In this case bug with id 1
+
+## Simplifying update logic with Immer

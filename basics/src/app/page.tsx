@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ListGroup from "@/components/ListGroup";
 import Button from "@/components/Custom/Button";
 
@@ -31,8 +31,34 @@ const badges = [
 ];
 
 export default function Home() {
-  const onSelectItem = (item) => {
+  const [bugs, setBugs] = useState([
+    {
+      id: 1,
+      title: "Bug 1",
+      fixed: false,
+    },
+    {
+      id: 2,
+      title: "Bug 2",
+      fixed: false,
+    },
+    {
+      id: 3,
+      title: "Bug 3",
+      fixed: true,
+    },
+  ]);
+
+  const onSelectItem = (item: any) => {
     console.log(item);
+  };
+
+  const handleClick = () => {
+    setBugs(
+      bugs.map((bug) => {
+        return bug.id === 1 ? { ...bug, fixed: true } : bug;
+      })
+    );
   };
 
   return (
@@ -42,7 +68,7 @@ export default function Home() {
       <ListGroup items={badges} title="Cities" onSelectItem={onSelectItem} />
 
       <br />
-      <Button />
+      <Button onClick={handleClick} />
     </main>
   );
 }
