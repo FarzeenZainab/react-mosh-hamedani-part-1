@@ -12,15 +12,36 @@ Some examples of sideEffects can be
 
 Now, none of the situation is about rendering the component. They have nothing to do with returning some JSX markup. So, where can we implement above effects/code? That's where useEffect is used.
 
-``
+```
 useEffect(()=>{})
 
-With the effect hook we can tell react to execute a piece of code **after** a component is rendered
+With the effect hook we can tell react to execute a piece of code
+**after** a component is rendered
 
-``
+```
 
-useEffect runs a piece of code that changes something outside the component
+useEffect runs a piece of code that changes something outside the component.
 
 The name of this hook is a little confusing, a lot of people argue that this hook should be called afterRender.
 
 We can not call it inside a for loop, function etc. We can only use it at the top level of our component
+
+### Effect Dependencies
+
+```
+    useEffect(()=>{}) // runs every time
+
+    useEffect(()=>{}, []) // runs on first render only
+
+    useEffect(()=>{}, [a, b]) // if any of the dependencies changes, react will re-run our effect. Dependencies can be props or state of the component.
+```
+
+### Effect Cleanup
+
+Our cleanup function can optionally return a callback function for cleanup. This is not always necessary.
+
+Generally speaking, our cleanup function should stop or undo whatever the effect was doing.
+
+Sometimes the code we write in useEffect does not need any clean up.
+
+But, what if we are connecting a chat server in our useEffect, at some time we need to disconnect from our chat server. For example if the user navigates away from the chat page then we should disconnect from the chat server.
