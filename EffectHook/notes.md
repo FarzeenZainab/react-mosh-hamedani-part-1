@@ -45,3 +45,23 @@ Generally speaking, our cleanup function should stop or undo whatever the effect
 Sometimes the code we write in useEffect does not need any clean up.
 
 But, what if we are connecting a chat server in our useEffect, at some time we need to disconnect from our chat server. For example if the user navigates away from the chat page then we should disconnect from the chat server.
+
+### Sending Requests To The Server Using useEffect Hook
+
+we can use
+
+- fetch() - implemented in all modern browsers
+- axios - library
+
+### Using Axios
+
+Send a get request to the server
+axios.get("https://jsonplaceholder.typicode.com/users");
+
+Calling a server does not gonna happen immediatly perhaps, it is going to take half a second or longer so, axios.get() method returns a promise
+
+### Promise
+
+A promise is an object that holds the eventual result or failure of an asynchronous operation
+
+All promises have a method called .then(). This method takes a callback that will be executed when the request is resolved an the data is ready.
