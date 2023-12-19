@@ -40,6 +40,8 @@ We can not call it inside a for loop, function etc. We can only use it at the to
 
 Our cleanup function can optionally return a callback function for cleanup. This is not always necessary.
 
+<b>The cleanup function associated with the useEffect is executed when the component unmounts or the dependencies specified is the second argument of 'useEffect' change.</b>
+
 Generally speaking, our cleanup function should stop or undo whatever the effect was doing.
 
 Sometimes the code we write in useEffect does not need any clean up.
@@ -65,3 +67,25 @@ Calling a server does not gonna happen immediatly perhaps, it is going to take h
 A promise is an object that holds the eventual result or failure of an asynchronous operation
 
 All promises have a method called .then(). This method takes a callback that will be executed when the request is resolved an the data is ready.
+
+### Error handling
+
+When calling a server many things can go wrong. As a good developer we should anticipate errors/problem that may happen when connecting to a server
+
+In JS, all promises has a method called catch that handles errors. We can utilize this to handle errors.
+
+### Cancelling a fetch request
+
+Sometimes we have to cleanup our useEffect to stop/terminate task that it has started.
+
+For example, a user lands on a page and that page sends request to the server but before the server returns the result the user navigated away to another page. Now, we donot want our server to process the request. So, as a best practice when we fetch data in our effect we should also provide a cleanup function to cancel our fetch request incase the data is no longer needed.
+
+`const controller = new AbortController();`
+
+AbortController is a built-in class in modern browsers that allows us to cancel or abort async operations like fetch request, or any operation that may take a long time to complete
+
+## Optimistic vs Pessimistic UI Update
+
+Optimistic: Update the UI first and call the server later. In this aproach we are optimistic that the call to the server will succeed most of the time resulting in blazing fast UI response.
+
+Pessimistic: Call the server, get the response, update the UI. In this aproch we assume that the call to the server will fail so, we call ther server first and wait for the result. If the call is successful then we will update the server.

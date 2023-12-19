@@ -1,4 +1,4 @@
-import { RefObject, forwardRef } from "react";
+import { ReactNode, RefObject, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 
@@ -21,7 +21,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
+        sm: "h-6 text-xs rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
       },
@@ -37,7 +37,9 @@ interface ButtonProps {
   className?: string;
   variant?: "destructive" | "outline" | "secondary" | "link" | "ghost";
   size?: "sm" | "lg" | "icon";
+  children: ReactNode;
   asChild?: any;
+  onClick?: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
